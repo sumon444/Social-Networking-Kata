@@ -27,7 +27,7 @@ class Snk
       subscribe_to_timeline(follower, following)
     elsif @command.include? 'wall'
       user = @command.split(' wall')
-      view_wall(user)
+      view_wall(user[0])
     else
       view_timeline(@command)
     end
@@ -44,17 +44,18 @@ class Snk
 
   def view_wall(user)
     @posts.reverse.each do |msg|
-      puts "#{msg[:user]} > #{msg[:message]} (#{msg[:time].ago_in_words})" if user == msg[:user]
+      print "#{msg[:user]} - #{msg[:message]} (#{msg[:time].ago_in_words})" if user == msg[:user]
     end
 
     @posts.reverse.each do |msg|
-      puts "#{msg[:user]} > #{msg[:message]} (#{msg[:time].ago_in_words})" if @follows.include?("#{user},#{msg[:user]}")
+      print "#{msg[:user]} - #{msg[:message]} (#{msg[:time].ago_in_words})" if @follows.include?("#{user},#{msg[:user]}")
     end
   end
 
   def view_timeline(user)
+    print user
     @posts.reverse.each do |msg|
-      puts "#{msg[:user]} > #{msg[:message]} (#{msg[:time].ago_in_words})" if user == msg[:user]
+      print " > #{msg[:message]} (#{msg[:time].ago_in_words})" if user == msg[:user]
     end
   end
 
