@@ -26,8 +26,7 @@ class Snk
       follower, following = @command.split(' follows ')
       subscribe_to_timeline(follower, following)
     elsif @command.include? 'wall'
-      user = @command.split(' wall')
-      view_wall(user[0])
+      view_wall(@command.split(' wall')[0])
     else
       view_timeline(@command)
     end
